@@ -26,6 +26,24 @@ namespace PizzaAndSushi.Services.Implementation
             return await _pizzaAndSushiContext.Products.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
 
+        public async Task<ScrollResult<Product>> GetProductAsync(int skip, int take, int productTypeId)
+        {
+            var items = await _pizzaAndSushiContext.Products.AsNoTracking()
+                                                      .Where(e => e.ProductTypeId == productTypeId)
+                                                      .OrderBy(e => e.Id)
+                                                      .Skip(skip)
+                                                      .Take(take)
+                                                      .ToListAsync();
+
+            var count = await _pizzaAndSushiContext.Products.CountAsync();
+
+            return new ScrollResult<Product>
+            {
+                Count = count,
+                Items = items
+            };
+        }
+
         public async Task<ScrollResult<Product>> GetProductsAsync(int skip, int take)
         {
             var items = await _pizzaAndSushiContext.Products

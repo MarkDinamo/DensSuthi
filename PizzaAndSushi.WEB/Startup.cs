@@ -27,6 +27,7 @@ namespace PizzaAndSushi.WEB
             services.AddDbContext<PizzaAndSushiContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PizzaAndSushi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddScoped<IProductsService,ProductsService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IProductTypeService, ProductTypeService>();
 
             services.AddControllersWithViews();
 
