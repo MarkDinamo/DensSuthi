@@ -1,2 +1,11 @@
-﻿body {
+﻿.click-span{
+    cursor:pointer;
+    float: right;
+    margin-right: 5px;
+}
+
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }

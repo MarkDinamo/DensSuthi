@@ -29,5 +29,19 @@ namespace PizzaAndSushi.Services.Implementation
         {
             return await _pizzaAndSushiContext.ProductTypes.ToListAsync();
         }
+
+        public async Task Update(ProductType productType)
+        {
+            var entity = await _pizzaAndSushiContext.ProductTypes.FirstOrDefaultAsync(e => e.Id == productType.Id);
+            entity.Name = productType.Name;
+            await _pizzaAndSushiContext.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var entity = await _pizzaAndSushiContext.ProductTypes.FirstOrDefaultAsync(e => e.Id == id);
+            _pizzaAndSushiContext.ProductTypes.Remove(entity);
+            await _pizzaAndSushiContext.SaveChangesAsync();
+        }
     }
 }

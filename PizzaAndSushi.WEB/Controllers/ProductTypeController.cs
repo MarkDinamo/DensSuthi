@@ -31,5 +31,18 @@ namespace PizzaAndSushi.WEB.Controllers
         {
             await _productTypeService.AddAsync(productType);
         }
+
+        [HttpDelete]
+        [Route("{id:int:min(0)}")]
+        public async Task Delete(int id)
+        {
+            await _productTypeService.Delete(id);
+        }
+
+        [HttpPut]
+        public async Task Update([FromBody] ProductType productType)
+        {
+            await _productTypeService.Update(productType);
+        }
     }
 }

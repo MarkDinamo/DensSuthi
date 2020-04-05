@@ -10,5 +10,7 @@ namespace PizzaAndSushi.Services.Abstractions
     {
         Task<IEnumerable<ProductType>> GetAsync();
         Task AddAsync(ProductType productType);
+        Task Update(ProductType productType);
+        Task Delete(int id);
     }
 }
