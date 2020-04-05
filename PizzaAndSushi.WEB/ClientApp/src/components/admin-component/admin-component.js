@@ -2,6 +2,7 @@
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import { ProductTypeComponent } from './product-type-component'
+import { ProductComponent } from './product-component'
 
 export function AdminComponent(props) {
     const [activeTab, setActiveTab] = useState('1');
@@ -34,14 +35,12 @@ export function AdminComponent(props) {
                     <TabContent activeTab={activeTab}>
                         <TabPane tabId="1">
                             <Row>
-                               
-                                    <ProductTypeComponent></ProductTypeComponent>
-                                
+                                <ProductTypeComponent></ProductTypeComponent>
                             </Row>
                         </TabPane>
                         <TabPane tabId="2">
                             <Row>
-                                
+                                <ProductComponent></ProductComponent>
                             </Row>
                         </TabPane>
                     </TabContent>

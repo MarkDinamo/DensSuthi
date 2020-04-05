@@ -23,7 +23,7 @@ namespace PizzaAndSushi.WEB.Controllers
         }
 
         [HttpGet]
-        [Route("get/{skip:int:min(0)}/{take:int:range(0,20)}")]
+        [Route("get/{skip:int:min(0)}/{take:int:range(0,100)}")]
         public async Task<ScrollResult<Product>> Get(int skip, int take)
         {
             return await _productsService.GetProductsAsync(skip, take);
