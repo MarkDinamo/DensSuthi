@@ -6,7 +6,9 @@ import EditIcon from '@material-ui/icons/Edit';
 
 export function ProductComponent(props) {
     const [items, setItems] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [modalEntity, setModalEntity] = useState({});
+
     const [modal, setModal] = useState(false);
     const [newCategoryName, setnewCategoryName] = useState("");
     const [modalTitle, setModalTitle] = useState("");
@@ -30,14 +32,6 @@ export function ProductComponent(props) {
         toggle();
     }
 
-    const handleInputChange = (event) => {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-        setModalEntity({ [name]: value })
-
-    }
-
     const updateModalEntity = (prop, value) => {
         console.log(prop + "--" + value);
         let modalEntityOld = modalEntity;
@@ -48,15 +42,33 @@ export function ProductComponent(props) {
 
     useEffect(() => {
         fetchData();
+        fetch('api/ProductType')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setCategories(data)
+            });
     }, []);
 
     const toggle = () => setModal(!modal);
     const Ok = () => {
+        let xxx = JSON.stringify(modalEntity);
         console.log(modalEntity);
+        fetch('api/product', {
+            method: modalEntity.id === 0 ? 'POST' : 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(modalEntity)
+        }).then((response) => {
+            fetchData();
+        });
     };
 
     const fetchData = () => {
-        fetch('api/Product/0/200')
+        fetch('api/Product/get/0/100')
             .then((response) => {
                 return response.json();
             })
@@ -76,34 +88,32 @@ export function ProductComponent(props) {
                         <Form>
                             <FormGroup>
                                 <Label for="name">Name</Label>
-                                <Input type="text" name="name" value={modalEntity.name} onChange={(e) => handleInputChange(e)} placeholder="Name" />
+                                <Input type="text" name="name" onChange={(e) => updateModalEntity("name", e.target.value)} placeholder="Name" />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="exampleSelect">Category</Label>
-                                <Input type="select" name="select" id="exampleSelect">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <Input type="select" name="productTypeId" onChange={(e) => updateModalEntity("productTypeId", parseInt(e.target.value))}>
+                                    {categories.map((category) =>
+                                        <option value={category.id} key={category.id}>{category.name}</option>
+                                    )}
                                 </Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="details">Details</Label>
-                                <Input type="textarea" name="details" value={modalEntity.details} onChange={(e) => updateModalEntity("details", e.target.value)} placeholder="Details" />
+                                <Input type="textarea" name="details" onChange={(e) => updateModalEntity("details", e.target.value)} placeholder="Details" />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="price">Price</Label>
-                                <Input type="number" name="price" value={modalEntity.price} onChange={(e) => updateModalEntity("price", e.target.value)} placeholder="Price" />
+                                <Input type="number" name="price" onChange={(e) => updateModalEntity("price", parseInt(e.target.value))} placeholder="Price" />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="weight">Weight</Label>
-                                <Input type="number" name="weight" value={modalEntity.weight} onChange={(e) => updateModalEntity("weight", e.target.value)} placeholder="Weight" />
+                                <Label for="weight">Weight in grams or m. litters</Label>
+                                <Input type="number" name="weight" onChange={(e) => updateModalEntity("weight", parseInt(e.target.value))} placeholder="Weight" />
                             </FormGroup>
                             <FormGroup>
                                 <div className="form-label">
                                     <Label check>
-                                        <Input type="checkbox" value={modalEntity.isLiquid} onChange={(e) => updateModalEntity("isLiquid", e.target.checked)} />{' '}
+                                        <Input type="checkbox" onChange={(e) => updateModalEntity("isLiquid", e.target.checked)} />{' '}
                                          Is Liquid
                                     </Label>
                                 </div>
@@ -111,7 +121,7 @@ export function ProductComponent(props) {
                             <FormGroup>
                                 <div className="form-label">
                                     <Label check>
-                                        <Input type="checkbox" value={modalEntity.isHidden} onChange={(e) => updateModalEntity("isHidden", e.target.checked)} />{' '}
+                                        <Input type="checkbox" onChange={(e) => updateModalEntity("isHidden", e.target.checked)} />{' '}
                                          Is Hidden
                                     </Label>
                                 </div>
