@@ -3,8 +3,15 @@ import { ListGroup, ListGroupItem, Button, Col, Form, FormGroup, Modal, ModalHea
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import './admin-styles.css'
 import EditIcon from '@material-ui/icons/Edit';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export function ProductComponent(props) {
+    const [openSnackBar, setOpenSnackBar] = useState(false);
     const [items, setItems] = useState([]);
     const [categories, setCategories] = useState([]);
     const [modalEntity, setModalEntity] = useState({});
@@ -40,6 +47,14 @@ export function ProductComponent(props) {
         setModalEntity(modalEntityOld);
     }
 
+    const handleCloseSnackBar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnackBar(false);
+    };
+
     useEffect(() => {
         fetchData();
         fetch('api/ProductType')
@@ -54,8 +69,6 @@ export function ProductComponent(props) {
 
     const toggle = () => setModal(!modal);
     const Ok = () => {
-        let xxx = JSON.stringify(modalEntity);
-        console.log(modalEntity);
         fetch('api/product', {
             method: modalEntity.id === 0 ? 'POST' : 'PUT',
             headers: {
@@ -63,6 +76,7 @@ export function ProductComponent(props) {
             },
             body: JSON.stringify(modalEntity)
         }).then((response) => {
+            setOpenSnackBar(true);
             fetchData();
         });
     };
@@ -74,7 +88,7 @@ export function ProductComponent(props) {
             })
             .then((data) => {
                 console.log(data);
-                setItems(data)
+                setItems(data.items)
             });
     };
 
@@ -137,6 +151,19 @@ export function ProductComponent(props) {
                 </Modal>
             </Col>
             <Col xs="12">
+                <Snackbar open={openSnackBar} autoHideDuration={2000} onClose={handleCloseSnackBar}>
+                    <Alert onClose={handleCloseSnackBar} severity="success">
+                        Entity created sussefully
+                    </Alert>
+                </Snackbar>
+            </Col>
+            <Col xs="12">
+                <ListGroup>
+                    {items.map((item, index) =>
+                        <ListGroupItem key={item.id}>{item.name}</ListGroupItem>
+                    )}
+                </ListGroup>
+
             </Col>
         </>
     )
