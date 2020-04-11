@@ -9,3 +9,7 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+
+.form-label{
+    margin-left: 20px;
+}
