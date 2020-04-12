@@ -16,8 +16,8 @@ export function CategoryViewComponent(props) {
             </p>
             <Row>
                 {category.products.map((product) =>
-                    <Col xs="4">
-                        <ProductViewComponent product={product}></ProductViewComponent>
+                    <Col key={product.id} xs="4">
+                        <ProductViewComponent removeFromBasket={props.removeFromBasket} addToBasket={props.addToBasket} product={product}></ProductViewComponent>
                     </Col>
                 )}
             </Row>

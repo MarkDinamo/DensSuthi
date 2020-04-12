@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Button, CardTitle, CardText, CardImg } from 'reactstrap';
-import { AddItemToBasket, RemoveItemFromBasket, BasketContainsItem } from '../basket/basket-service'
 
 export function ProductViewComponent(props) {
     const [product, setProducts] = useState(props.product);
     const [productIsInBusket, setProductIsInBusket] = useState(false);
     useEffect(() => {
         setProducts(props.product);
-        setProductIsInBusket(BasketContainsItem(props.product.id));
     }, [props.product]);
 
     const addToBasket = () => {
-        AddItemToBasket(product.id);
-        console.log(product.id);
+        props.addToBasket(product.id);
+        setProductIsInBusket(true);
+    }
+
+    const removeFromBasket = () => {
+        props.removeFromBasket(product.id);
+        setProductIsInBusket(false);
     }
 
     return (
@@ -27,7 +30,11 @@ export function ProductViewComponent(props) {
                         <div>Weight:{product.weight}</div>
                     </CardText>
                     <CardText>
-                        <Button color="primary" onClick={() => addToBasket()}>Add to basket {productIsInBusket}</Button>
+                        {
+                            productIsInBusket == false ?
+                                <Button color="primary" onClick={() => addToBasket()}>Add to basket </Button>
+                                : <Button color="secondary" onClick={() => removeFromBasket()}>RemoveFrom</Button>
+                        }
                     </CardText>
                 </CardBody>
             </Card>
