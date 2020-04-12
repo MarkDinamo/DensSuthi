@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaAndSushi.Models;
 using PizzaAndSushi.Services.Abstractions;
@@ -18,6 +15,13 @@ namespace PizzaAndSushi.WEB.Controllers
         public ProductTypeController(IProductTypeService productTypeService)
         {
             _productTypeService = productTypeService;
+        }
+
+        [HttpGet]
+        [Route("getWithProducts")]
+        public async Task<IEnumerable<ProductType>> GetWithProducts()
+        {
+            return await _productTypeService.GetWithProducts();
         }
 
         [HttpGet]

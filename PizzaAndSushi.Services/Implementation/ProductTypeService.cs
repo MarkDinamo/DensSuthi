@@ -43,5 +43,16 @@ namespace PizzaAndSushi.Services.Implementation
             _pizzaAndSushiContext.ProductTypes.Remove(entity);
             await _pizzaAndSushiContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<ProductType>> GetWithProducts()
+        {
+            var productTypes = await _pizzaAndSushiContext.ProductTypes.AsNoTracking().ToListAsync();
+            foreach (var productType in productTypes)
+            {
+                productType.Products = await _pizzaAndSushiContext.Products.Where(e => e.ProductTypeId == productType.Id).Take(10).ToListAsync();
+            }
+
+            return productTypes;
+        }
     }
 }
