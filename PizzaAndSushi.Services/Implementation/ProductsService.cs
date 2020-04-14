@@ -2,6 +2,7 @@
 using PizzaAndSushi.DB;
 using PizzaAndSushi.Models;
 using PizzaAndSushi.Services.Abstractions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,6 +43,11 @@ namespace PizzaAndSushi.Services.Implementation
                 Count = count,
                 Items = items
             };
+        }
+
+        public async Task<IEnumerable<Product>> GetProductByIds(IEnumerable<int> ids)
+        {
+            return await _pizzaAndSushiContext.Products.Where(e => ids.Contains(e.Id)).ToListAsync();
         }
 
         public async Task<ScrollResult<Product>> GetProductsAsync(int skip, int take)

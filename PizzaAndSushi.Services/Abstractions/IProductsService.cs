@@ -14,5 +14,6 @@ namespace PizzaAndSushi.Services.Abstractions
         Task AddProduct(Product product);
         Task UpdateProduct(Product product);
         Task RemoveProduct(int id);
+        Task<IEnumerable<Product>> GetProductByIds(IEnumerable<int> ids);
     }
 }

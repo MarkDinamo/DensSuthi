@@ -6,14 +6,22 @@ export function BasketReviewComponent(props) {
     const [items, setItems] = useState([]);
     useEffect(() => {
         let array = localStorage.getItem("basket")
-        setItems(JSON.parse(array));
-        fetch("api/getByIds", {
+        console.log(array);
+        console.log(JSON.stringify(array));
+        fetch('api/Product/getByIds', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(array)
              }).
             then((response) => {
                 return response.json();
             })
             .then((data) => {
-
+                console.log(data);
+                data.foreach(e => {e.count = 1 });
+                setItems(data);
             });
     },[]);
 
@@ -26,7 +34,7 @@ export function BasketReviewComponent(props) {
                     </h3>
                     {
                         items.map((item) =>
-                            <p key={item}>{item}</p>
+                            <p key={item.id}>{item.name}  ---- {item.count}</p>
                         )
                     }
                 </Col>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using PizzaAndSushi.DB;
 using PizzaAndSushi.Models;
@@ -20,6 +21,14 @@ namespace PizzaAndSushi.WEB.Controllers
         public ProductController(IProductsService productsService)
         {
             _productsService = productsService;
+        }
+
+        [HttpPut]
+        [Route("getByIds")]
+        public async Task<IEnumerable<Product>> Get([FromBody] int [] idss)
+        {
+            var ids = new List<int>();
+            return await _productsService.GetProductByIds(ids);
         }
 
         [HttpGet]

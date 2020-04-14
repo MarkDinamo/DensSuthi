@@ -21,7 +21,7 @@ export function ProductViewComponent(props) {
     return (
         <div>
             <Card>
-                <CardImg top width="100%" src="https://ocs-pl.oktawave.com/v1/AUTH_876e5729-f8dd-45dd-908f-35d8bb716177/amrest-web-ordering/GRD4/GRD4590/W2%202020/PH_pepperoni_01.jpg" alt="Card image cap" />
+                <CardImg top width="100%" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kwestiasmaku.com%2Fprzepis%2Fciasto-na-pizze&psig=AOvVaw1GK0usJtf4MmUiz3cHMO2x&ust=1586974529163000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNis9frC6OgCFQAAAAAdAAAAABAW" alt="Card image cap" />
                 <CardBody>
                     <CardTitle>{product.name}</CardTitle>
                     <CardText>{product.details}</CardText>
