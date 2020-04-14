@@ -29,6 +29,7 @@ namespace PizzaAndSushi.WEB
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IProductTypeService, ProductTypeService>();
 
+            services.AddControllers().AddNewtonsoftJson();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

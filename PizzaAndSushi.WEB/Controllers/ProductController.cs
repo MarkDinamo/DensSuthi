@@ -25,9 +25,12 @@ namespace PizzaAndSushi.WEB.Controllers
 
         [HttpPut]
         [Route("getByIds")]
-        public async Task<IEnumerable<Product>> Get([FromBody] int [] idss)
+        public async Task<IEnumerable<Product>> Get([FromBody] IEnumerable<int> ids)
         {
-            var ids = new List<int>();
+           // var conver = args.Skip(1).Take(args.Length - 2);
+            //var ids = string.Split(",").Select(e => Int32.Parse(e)).ToList();
+
+
             return await _productsService.GetProductByIds(ids);
         }
 

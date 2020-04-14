@@ -6,6 +6,11 @@ export function BasketReviewComponent(props) {
     const [items, setItems] = useState([]);
     useEffect(() => {
         let array = localStorage.getItem("basket")
+        let list = JSON.parse(array);
+        let result = [];
+        for (var i in list) {
+            result.push(list[i]);
+        }
         console.log(array);
         console.log(JSON.stringify(array));
         fetch('api/Product/getByIds', {
@@ -13,17 +18,19 @@ export function BasketReviewComponent(props) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(array)
-             }).
+            body: JSON.stringify(result)
+        }).
             then((response) => {
                 return response.json();
             })
             .then((data) => {
                 console.log(data);
-                data.foreach(e => {e.count = 1 });
+                for (var i = 0; i < data.length; i++) {
+                    data[i].count = 1;
+                }
                 setItems(data);
             });
-    },[]);
+    }, []);
 
     return (
         <>
