@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { ListGroup, ListGroupItem, Button, Col, Form, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter, Input, Row, Label } from 'reactstrap';
-
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 export function BasketReviewComponent(props) {
     const [items, setItems] = useState([]);
@@ -41,7 +42,8 @@ export function BasketReviewComponent(props) {
                     </h3>
                     {
                         items.map((item) =>
-                            <p key={item.id}>{item.name}  ---- {item.count}</p>
+                            <p key={item.id}>{item.name}  ---- {item.count} <span><AddIcon></AddIcon></span> <span><RemoveIcon></RemoveIcon></span></p>
+                            
                         )
                     }
                 </Col>
