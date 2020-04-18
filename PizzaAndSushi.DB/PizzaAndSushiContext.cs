@@ -17,7 +17,5 @@ namespace PizzaAndSushi.DB
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-
-       
     }
 }

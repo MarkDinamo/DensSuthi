@@ -10,7 +10,7 @@ using PizzaAndSushi.DB;
 namespace PizzaAndSushi.DB.Migrations
 {
     [DbContext(typeof(PizzaAndSushiContext))]
-    [Migration("20200404170554_InitialCreate")]
+    [Migration("20200418191015_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,8 +42,10 @@ namespace PizzaAndSushi.DB.Migrations
 
             modelBuilder.Entity("PizzaAndSushi.Models.Order", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(500)")
@@ -86,15 +88,12 @@ namespace PizzaAndSushi.DB.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("OrderId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId1");
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -161,7 +160,9 @@ namespace PizzaAndSushi.DB.Migrations
                 {
                     b.HasOne("PizzaAndSushi.Models.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId1");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PizzaAndSushi.Models.Product", "Product")
                         .WithMany()
