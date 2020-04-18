@@ -7,7 +7,7 @@ namespace PizzaAndSushi.Models
 {
   public  class Order
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(500)]
         public string Address { get; set; }
