@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaAndSushi.WEB", "PizzaAndSushi.WEB\PizzaAndSushi.WEB.csproj", "{768DF2EE-F87E-4478-A936-E9FBE6B093A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaAndSushi.WEB", "PizzaAndSushi.WEB\PizzaAndSushi.WEB.csproj", "{768DF2EE-F87E-4478-A936-E9FBE6B093A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaAndSushi.Services", "PizzaAndSushi.Services\PizzaAndSushi.Services.csproj", "{5975D3AA-E145-4514-8A8A-638985F49152}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaAndSushi.Services", "PizzaAndSushi.Services\PizzaAndSushi.Services.csproj", "{5975D3AA-E145-4514-8A8A-638985F49152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaAndSushi.DB", "PizzaAndSushi.DB\PizzaAndSushi.DB.csproj", "{531F8725-51BE-40AA-95F2-5E231C8BCD09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaAndSushi.DB", "PizzaAndSushi.DB\PizzaAndSushi.DB.csproj", "{531F8725-51BE-40AA-95F2-5E231C8BCD09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaAndSushi.Models", "PizzaAndSushi.Models\PizzaAndSushi.Models.csproj", "{8BDA45F1-25D0-4CD6-9E01-F317A60F502F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaAndSushi.Models", "PizzaAndSushi.Models\PizzaAndSushi.Models.csproj", "{8BDA45F1-25D0-4CD6-9E01-F317A60F502F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F436048E-5D98-41AA-951A-48D0B03F3EC4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
