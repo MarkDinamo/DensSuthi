@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaAndSushi.Models;
+using PizzaAndSushi.Services.Abstractions;
 using PizzaAndSushi.Services.UiModels;
 
 namespace PizzaAndSushi.WEB.Controllers
@@ -13,16 +14,18 @@ namespace PizzaAndSushi.WEB.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        public OrderController()
-        {
+        private IOrderService _orderService;
 
+        public OrderController(IOrderService orderService)
+        {
+            _orderService = orderService;
         }
 
         [HttpPost]
         [Route("create")]
         public async Task Create([FromBody] CreateOrderModel createOrderModel)
         {
-            await Task.Delay(5000);
+            await _orderService.Create(createOrderModel);
         }
     }
 }

@@ -5,7 +5,17 @@ export function ProductViewComponent(props) {
     const [product, setProducts] = useState(props.product);
     const [productIsInBusket, setProductIsInBusket] = useState(false);
     useEffect(() => {
+        console.log("tttt");
         setProducts(props.product);
+        //fetch("api/file/1", {
+        //    method: 'GET',
+        //}).then((response) => response.blob())
+        //    .then((blob) => {
+        //        console.log('Success:', data);
+        //    })
+        //    .catch((error) => {
+        //        console.error('Error:', error);
+        //    });
     }, [props.product]);
 
     const addToBasket = () => {
@@ -21,7 +31,7 @@ export function ProductViewComponent(props) {
     return (
         <div>
             <Card>
-                <CardImg top width="100%" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kwestiasmaku.com%2Fprzepis%2Fciasto-na-pizze&psig=AOvVaw1GK0usJtf4MmUiz3cHMO2x&ust=1586974529163000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNis9frC6OgCFQAAAAAdAAAAABAW" alt="Card image cap" />
+                <CardImg top width="100%" src="api/file/1" alt="Card image cap" />
                 <CardBody>
                     <CardTitle>{product.name}</CardTitle>
                     <CardText>{product.details}</CardText>

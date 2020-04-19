@@ -24,9 +24,33 @@ export function ProductComponent(props) {
     const [categoryToRemove, setCategoryToRemove] = useState("");
     const [configModal, setConfigModal] = useState(false);
 
+    const sendFile = () => {
+        var input = document.querySelector('input[type="file"]')
+
+        var data = new FormData()
+        data.append('file', input.files[0])
+        data.append('user', 'hubot')
+
+        fetch('api/file/create', { // Your POST endpoint
+            method: 'POST',
+            //headers: {
+            //    // Content-Type may need to be completely **omitted**
+            //    // or you may need something
+            //    "Content-Type": "image/jpeg"
+            //},
+            body: data//input.files[0] // This is your file object
+        }).then(
+            response => response.json() // if the response is a JSON object
+        ).then(
+            success => console.log(success) // Handle the success response object
+        ).catch(
+            error => console.log(error) // Handle the error response object
+        );
+    }
+
     const createProduct = () => {
         setModalEntity({
-            id: 0,
+            id: categories[0].id,
             name: "Product name",
             details: "",
             price: 0,
@@ -96,6 +120,8 @@ export function ProductComponent(props) {
         <>
             <Col xs="12">
                 <Button color="primary" onClick={createProduct}>Add Product</Button>
+                <input id="" type="file"></input>
+                <Button color="primary" onClick={sendFile}>Sent data</Button>
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>{modalTitle}</ModalHeader>
                     <ModalBody>
