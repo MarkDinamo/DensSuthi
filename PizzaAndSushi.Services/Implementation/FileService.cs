@@ -18,7 +18,7 @@ namespace PizzaAndSushi.Services.Implementation
                 return stream;
             }
 
-            return null;
+            return File.OpenRead(@"C:\Users\klasf\Desktop\test\pizza2.jpg");
       
         }
 

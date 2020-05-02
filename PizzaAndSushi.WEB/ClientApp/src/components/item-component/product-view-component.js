@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Button, CardTitle, CardText, CardImg } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from '../../actions/index'
+
 
 export function ProductViewComponent(props) {
+    const basket = useSelector(state => state.basket);
+    console.log(basket);
+    const dispatch = useDispatch();
     const [product, setProducts] = useState(props.product);
     const [productIsInBusket, setProductIsInBusket] = useState(false);
     useEffect(() => {
@@ -18,10 +24,10 @@ export function ProductViewComponent(props) {
         //    });
     }, [props.product]);
 
-    const addToBasket = () => {
-        props.addToBasket(product.id);
-        setProductIsInBusket(true);
-    }
+    //const addToBasket = () => {
+    //    props.addToBasket(product.id);
+    //    setProductIsInBusket(true);
+    //}
 
     const removeFromBasket = () => {
         props.removeFromBasket(product.id);
@@ -42,7 +48,7 @@ export function ProductViewComponent(props) {
                     <CardText>
                         {
                             productIsInBusket == false ?
-                                <Button color="primary" onClick={() => addToBasket()}>Add to basket </Button>
+                                <Button color="primary" onClick={() => dispatch(actions.addToBasket(1))}>Add to basket </Button>
                                 : <Button color="secondary" onClick={() => removeFromBasket()}>RemoveFrom</Button>
                         }
                     </CardText>
