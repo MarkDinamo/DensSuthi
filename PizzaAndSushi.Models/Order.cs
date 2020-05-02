@@ -29,6 +29,10 @@ namespace PizzaAndSushi.Models
         [Required]
         public DateTime CreatedOne { get; set; }
 
+        public int OrderStatusId { get; set; }
+
+        public OrderStatus OrderStatus { get; set; }
+
         public List<OrderItem> OrderItems { get; set; }
     }
 }

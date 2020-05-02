@@ -31,7 +31,7 @@ export function ProductComponent(props) {
         data.append('file', input.files[0])
         data.append('user', 'hubot')
 
-        fetch('api/file/create', { // Your POST endpoint
+        fetch(`api/file/create/1`, { // Your POST endpoint
             method: 'POST',
             //headers: {
             //    // Content-Type may need to be completely **omitted**

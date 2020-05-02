@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaAndSushi.Services.Abstractions;
@@ -23,28 +20,15 @@ namespace PizzaAndSushi.WEB.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetFile(int id)
         {
-            var stream = await _fileService.Get(id);
+            var stream = await _fileService.Get(id.ToString());
             return File(stream, "application/octet-stream");
         }
 
         [HttpPost]
-        [Route("create")]
-        public async Task Create( IFormFile file)
+        [Route("create/{id}")]
+        public async Task Create(string id, IFormFile file)
         {
-            var filePath = @"C:\Users\klasf\Desktop\test\1.jpg";
-
-            try
-            {
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                    await file.CopyToAsync(stream);
-                }
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
+            await _fileService.Create(file, id);
         }
     }
 }
