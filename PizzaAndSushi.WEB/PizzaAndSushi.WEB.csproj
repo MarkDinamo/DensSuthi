@@ -27,12 +27,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\reducers\basket.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PizzaAndSushi.DB\PizzaAndSushi.DB.csproj" />
     <ProjectReference Include="..\PizzaAndSushi.Services\PizzaAndSushi.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\reducers\basket.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
