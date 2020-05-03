@@ -49,7 +49,7 @@ namespace PizzaAndSushi.Services.Implementation
             var productTypes = await _pizzaAndSushiContext.ProductTypes.AsNoTracking().ToListAsync();
             foreach (var productType in productTypes)
             {
-                productType.Products = await _pizzaAndSushiContext.Products.Where(e => e.ProductTypeId == productType.Id).ToListAsync();
+                productType.Products = await _pizzaAndSushiContext.Products.Where(e => e.ProductTypeId == productType.Id && e.IsHidden == false).ToListAsync();
             }
 
             return productTypes;
