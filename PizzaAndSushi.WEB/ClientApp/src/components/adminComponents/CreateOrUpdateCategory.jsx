@@ -59,8 +59,8 @@ export function CreateOrUpdateCategory(props) {
 
         })
             .then((response) => {
-                setOpenSnack(true);
                 setToastMessage("deleted");
+                setOpenSnack(true);
                 props.refresh();
             })
     };
