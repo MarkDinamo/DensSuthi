@@ -2,6 +2,7 @@
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import { CategoryManager } from '../adminComponents/category-manager'
+import { ProductManager } from '../adminComponents/product-manager'
 
 export function AdminComponent(props) {
     const [activeTab, setActiveTab] = useState('1');
@@ -40,7 +41,9 @@ export function AdminComponent(props) {
                 </TabPane>
                 <TabPane tabId="2">
                     <Row>
-                        
+                        <Col sm="12">
+                            <ProductManager></ProductManager>
+                        </Col>
                     </Row>
                 </TabPane>
             </TabContent>

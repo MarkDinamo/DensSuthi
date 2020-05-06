@@ -67,6 +67,7 @@ namespace PizzaAndSushi.WEB.Controllers
         }
 
         [HttpDelete]
+        [Route("{id:int:min(0)}")]
         public async Task Delete(int id)
         {
             await _productsService.RemoveProduct(id);
