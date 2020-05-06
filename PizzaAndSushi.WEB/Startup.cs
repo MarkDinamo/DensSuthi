@@ -30,6 +30,7 @@ namespace PizzaAndSushi.WEB
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IRestorauntsService, RestorauntsService>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddControllersWithViews();

@@ -3,6 +3,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 import classnames from 'classnames';
 import { CategoryManager } from '../adminComponents/category-manager'
 import { ProductManager } from '../adminComponents/product-manager'
+import { RestaurantsManager } from '../adminComponents/restaurants-manager'
 
 export function AdminComponent(props) {
     const [activeTab, setActiveTab] = useState('1');
@@ -20,7 +21,7 @@ export function AdminComponent(props) {
                         onClick={() => { toggle('1'); }}
                     >
                         Categories
-          </NavLink>
+                    </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink
@@ -28,7 +29,15 @@ export function AdminComponent(props) {
                         onClick={() => { toggle('2'); }}
                     >
                         Products
-          </NavLink>
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink
+                        className={classnames({ active: activeTab === '3' })}
+                        onClick={() => { toggle('3'); }}
+                    >
+                        Restoraunts
+                    </NavLink>
                 </NavItem>
             </Nav>
             <TabContent activeTab={activeTab}>
@@ -43,6 +52,13 @@ export function AdminComponent(props) {
                     <Row>
                         <Col sm="12">
                             <ProductManager></ProductManager>
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="3">
+                    <Row>
+                        <Col sm="12">
+                            <RestaurantsManager></RestaurantsManager>
                         </Col>
                     </Row>
                 </TabPane>
