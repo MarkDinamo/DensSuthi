@@ -30,6 +30,9 @@ export function ProductManager(props) {
 
     return (
         <div>
+            <br/>
+            <CreateOrUpdateProduct categories={categories}></CreateOrUpdateProduct>
+            <br/>
             {products.length > 0 && categories.length > 0 &&
                 <Table striped>
                     <thead>
@@ -51,7 +54,7 @@ export function ProductManager(props) {
                                     {getCategoryName(product.id)}
                                 </td>
                                 <td>{product.price}</td>
-                                <td><CustomInput id={product.id+'isHidden'} type="checkbox" disabled checked={product.isHidden} /></td>
+                                <td><CustomInput id={product.id + 'isHidden'} type="checkbox" disabled checked={product.isHidden} /></td>
                                 <td>
                                     <DeleteProduct product={product}></DeleteProduct>
                                     <CreateOrUpdateProduct categories={categories} product={product}></CreateOrUpdateProduct>

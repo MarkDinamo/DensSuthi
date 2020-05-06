@@ -32,6 +32,17 @@ export function CreateOrUpdateProduct(props) {
         }
     }, [])
 
+    const createOrUpdate = () => {
+        fetch('api/product', {
+            method: productModel.id == 0 ? "POST" : "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productModel),
+        })
+            .then((response => console.log(response)))
+
+    }
 
     const onChangeHandler = (property, value) => {
         console.log(property, value);
@@ -50,7 +61,7 @@ export function CreateOrUpdateProduct(props) {
                 {
                     isCreate
                         ? <ModalHeader toggle={toggle}>Create new product</ModalHeader>
-                        : <ModalHeader toggle={toggle}>Edit product {props.name}</ModalHeader>
+                        : <ModalHeader toggle={toggle}>Edit product {productModel.name} </ModalHeader>
                 }
                 <ModalBody>
                     <Form>
@@ -58,13 +69,15 @@ export function CreateOrUpdateProduct(props) {
                             <Label for="name">Name</Label>
                             <Input type="text" name="name" id="name" value={productModel.name} onChange={(e) => onChangeHandler(e.target.name, e.target.value)} placeholder="Product name" />
                         </FormGroup>
-                        <Label for="pro">Category</Label>
-                        <Input type="select" name="productTypeId" id="productTypeId" value={productModel.productTypeId} onChange={(e) => onChangeHandler(e.target.name, parseInt(e.target.value))}>
-                            <option value={0}>None</option>
-                            {props.categories.map((category) =>
-                                <option value={category.id} key={category.id}>{category.name}</option>)
-                            }
-                        </Input>
+                        <FormGroup>
+                            <Label for="pro">Category</Label>
+                            <Input type="select" name="productTypeId" id="productTypeId" value={productModel.productTypeId} onChange={(e) => onChangeHandler(e.target.name, parseInt(e.target.value))}>
+                                <option value={0}>None</option>
+                                {props.categories.map((category) =>
+                                    <option value={category.id} key={category.id}>{category.name}</option>)
+                                }
+                            </Input>
+                        </FormGroup>
                         <FormGroup>
                             <Label for="name">Details</Label>
                             <Input type="textarea" name="details" id="details" value={productModel.details} onChange={(e) => onChangeHandler(e.target.name, e.target.value)} placeholder="Product details" />
@@ -93,7 +106,7 @@ export function CreateOrUpdateProduct(props) {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={toggle}>Cancel</Button>{' '}
-                    <Button color="primary" onClick={toggle}>{isCreate ? "Create" : "Update"}</Button>
+                    <Button color="primary" onClick={createOrUpdate}>{isCreate ? "Create" : "Update"}</Button>
                 </ModalFooter>
             </Modal>
 
