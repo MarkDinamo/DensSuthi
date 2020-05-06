@@ -30,9 +30,9 @@ export function ProductManager(props) {
 
     return (
         <div>
-            <br/>
+            <br />
             <CreateOrUpdateProduct categories={categories}></CreateOrUpdateProduct>
-            <br/>
+            <br />
             {products.length > 0 && categories.length > 0 &&
                 <Table striped>
                     <thead>
@@ -42,6 +42,7 @@ export function ProductManager(props) {
                             <th>Category</th>
                             <th>Price</th>
                             <th>Is hidden</th>
+                            <th>Is liquid</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -51,13 +52,14 @@ export function ProductManager(props) {
                                 <th scope="row">{index + 1}</th>
                                 <td>{product.name}</td>
                                 <td>
-                                    {getCategoryName(product.id)}
+                                    {getCategoryName(product.productTypeId)}
                                 </td>
                                 <td>{product.price}</td>
                                 <td><CustomInput id={product.id + 'isHidden'} type="checkbox" disabled checked={product.isHidden} /></td>
+                                <td><CustomInput id={product.id + 'isLiquid'} type="checkbox" disabled checked={product.isLiquid} /></td>
                                 <td>
-                                    <DeleteProduct product={product}></DeleteProduct>
-                                    <CreateOrUpdateProduct categories={categories} product={product}></CreateOrUpdateProduct>
+                                    <DeleteProduct product={product} refresh={refresh}></DeleteProduct>
+                                    <CreateOrUpdateProduct categories={categories} refresh={refresh} product={product}></CreateOrUpdateProduct>
                                 </td>
                             </tr>
                         )

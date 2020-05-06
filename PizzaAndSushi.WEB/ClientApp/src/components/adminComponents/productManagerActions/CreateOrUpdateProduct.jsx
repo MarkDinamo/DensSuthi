@@ -1,11 +1,28 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalFooter, ModalBody, NavItem, NavLink, Card, Button, Form, FormGroup, Label, Input, FormText, CardTitle, CardText, Row, Col, CustomInput } from 'reactstrap';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export function CreateOrUpdateProduct(props) {
     console.log(props);
     const [productModel, setProductModel] = useState({});
     const [isCreate, setIsCreate] = useState(true);
     const [modal, setModal] = useState(false);
+    const [snack, setSnack] = useState(false);
+    const [snackSuccess, setSnackSuccess] = useState(false);
+    
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnack(false);
+    };
 
     const toggle = () => setModal(!modal);
 
@@ -40,8 +57,12 @@ export function CreateOrUpdateProduct(props) {
             },
             body: JSON.stringify(productModel),
         })
-            .then((response => console.log(response)))
-
+            .then((response => response.text()))
+            .then(text => {
+                setSnack(true);
+                props.refresh();
+            })
+            .catch((error) => console.log(error));
     }
 
     const onChangeHandler = (property, value) => {
@@ -57,6 +78,11 @@ export function CreateOrUpdateProduct(props) {
                     ? <Button onClick={openDialog} color="primary">Create</Button>
                     : <Button onClick={openDialog} color="success">Edit</Button>
             }
+            <Snackbar open={snack} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                <Alert onClose={handleClose} severity="success">
+                    Product {isCreate ?"created" :'updated'} successfully
+                </Alert>
+            </Snackbar>
             <Modal isOpen={modal} toggle={toggle}>
                 {
                     isCreate
@@ -92,13 +118,13 @@ export function CreateOrUpdateProduct(props) {
                         </FormGroup>
                         <FormGroup check>
                             <Label check>
-                                <Input name="isLiquid" value={productModel.isLiquid} onChange={(e) => onChangeHandler(e.target.name, e.target.checked)} type="checkbox" />{' '}
+                                <Input name="isLiquid" checked={productModel.isLiquid} onChange={(e) => onChangeHandler(e.target.name, e.target.checked)} type="checkbox" />{' '}
                                 Is liquild
                             </Label>
                         </FormGroup>
                         <FormGroup check>
                             <Label check>
-                                <Input name="isHidden" value={productModel.isHidden} onChange={(e) => onChangeHandler(e.target.name, e.target.checked)} type="checkbox" />{' '}
+                                <Input name="isHidden" checked={productModel.isHidden} onChange={(e) => onChangeHandler(e.target.name, e.target.checked)} type="checkbox" />{' '}
                                 Is hidden
                             </Label>
                         </FormGroup>

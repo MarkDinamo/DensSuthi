@@ -8,7 +8,8 @@ export function DeleteProduct(props) {
     const deleteProduct = () => {
         fetch('api/product/' + props.product.id, {
             method: 'DELETE'
-        });
+        }).then(response => { response.text() })
+            .then(text => props.refresh())
 
         toggle();
     }
