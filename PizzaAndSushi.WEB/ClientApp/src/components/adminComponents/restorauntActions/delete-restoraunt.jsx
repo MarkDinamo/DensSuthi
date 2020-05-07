@@ -8,7 +8,10 @@ export function DeleteRestoraunt(props) {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const deleteRestoraunt = () => {
         setIsOpenSnack(false);
-        fetch(`api/restoraunt/${props.restoraunt.id}`)
+        fetch(`api/restoraunt/${props.restoraunt.id}`,
+            {
+                method: "DELETE"
+            })
             .then(response => response.text())
             .then(text => {
                 setIsOpenSnack(true);
@@ -17,14 +20,17 @@ export function DeleteRestoraunt(props) {
     }
 
     const confirmModalCallBack = (confirmed) => {
-        console.log(confirmed);
+        setIsOpenModal(false)
+        if (confirmed) {
+            deleteRestoraunt();
+        }
     }
 
     return (
         <>
             <SuchiSnackBar isOpen={isOpenSnack} message="Restoraunt was removed successfully" ></SuchiSnackBar>
             <ConfirmModal open={isOpenModal} message="Are you sure to remove restoraunt" resultCallBack={confirmModalCallBack}></ConfirmModal>
-            <Button onClick={deleteRestoraunt} color="danger">Delete</Button>
+            <Button onClick={() => setIsOpenModal(true)} color="danger">Delete</Button>
         </>
         )
 }
