@@ -28,6 +28,9 @@ namespace PizzaAndSushi.WEB.Controllers
         [Route("create/{id}")]
         public async Task Create(string id, IFormFile file)
         {
+            if (file == null)
+                return;
+
             await _fileService.Create(file, id);
         }
     }

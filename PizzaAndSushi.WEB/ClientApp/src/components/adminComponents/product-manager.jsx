@@ -2,6 +2,7 @@
 import { Table, TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, CustomInput } from 'reactstrap';
 import { DeleteProduct } from '../adminComponents/productManagerActions/deleteProduct'
 import { CreateOrUpdateProduct } from '../adminComponents/productManagerActions/CreateOrUpdateProduct'
+import { ProductImageLoader } from '../adminComponents/productManagerActions/product-image-uploader'
 
 export function ProductManager(props) {
     const [products, setProducts] = useState([]);
@@ -58,8 +59,9 @@ export function ProductManager(props) {
                                 <td><CustomInput id={product.id + 'isHidden'} type="checkbox" disabled checked={product.isHidden} /></td>
                                 <td><CustomInput id={product.id + 'isLiquid'} type="checkbox" disabled checked={product.isLiquid} /></td>
                                 <td>
-                                    <DeleteProduct product={product} refresh={refresh}></DeleteProduct>
-                                    <CreateOrUpdateProduct categories={categories} refresh={refresh} product={product}></CreateOrUpdateProduct>
+                                    <DeleteProduct product={product} refresh={refresh}></DeleteProduct> {' '}
+                                    <CreateOrUpdateProduct categories={categories} refresh={refresh} product={product}></CreateOrUpdateProduct> {' '}
+                                    <ProductImageLoader id={product.id}></ProductImageLoader>
                                 </td>
                             </tr>
                         )
