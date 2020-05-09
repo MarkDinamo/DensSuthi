@@ -5,7 +5,7 @@
                 ...state,
                 {
                     id: action.id,
-                    count: action.count
+                    count: 1
                 }
             ]
         case 'REMOVE_BASKET':

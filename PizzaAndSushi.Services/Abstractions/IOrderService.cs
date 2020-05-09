@@ -9,7 +9,7 @@ namespace PizzaAndSushi.Services.Abstractions
 {
     public interface IOrderService
     {
-        Task Create(CreateOrderModel createOrderModel);
+        Task<string> Create(CreateOrderModel createOrderModel);
         Task Update(Order order);
         Task<IEnumerable<Order>> Get();
         Task<IEnumerable<OrderItem>> GetOrderItems(string orderId);

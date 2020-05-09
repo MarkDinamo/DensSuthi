@@ -18,18 +18,38 @@ namespace PizzaAndSushi.Services.Implementation
         {
             _pizzaAndSushiContext = pizzaAndSushiContext;
         }
-        public async Task Create(CreateOrderModel createOrderModel)
+        public async Task<string> Create(CreateOrderModel createOrderModel)
         {
             createOrderModel.OrderDetails.CreatedOne = DateTime.Now;
+            createOrderModel.OrderDetails.OrderStatusId = 1;
 
             using (var transaction = await _pizzaAndSushiContext.Database.BeginTransactionAsync())
             {
-                var order = await _pizzaAndSushiContext.AddAsync(createOrderModel.OrderDetails);
-                var oderItems = createOrderModel.Products.Select(e => new OrderItem()
+                try
                 {
-                    ProductId = e.Key,
+                    var order = await _pizzaAndSushiContext.AddAsync(createOrderModel.OrderDetails);
+                    await _pizzaAndSushiContext.SaveChangesAsync();
 
-                });
+                    var oderItems = createOrderModel.Products.Select(e => new OrderItem()
+                    {
+                        ProductId = e.Key,
+                        Count = e.Value,
+                        OrderId = order.Entity.Id
+
+                    });
+
+                    await _pizzaAndSushiContext.OrderItems.AddRangeAsync(oderItems);
+                    await _pizzaAndSushiContext.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+
+                    return "72831";
+                }
+                catch (Exception e) 
+                {
+                    await transaction.RollbackAsync();
+                    throw;
+                }
             }
         }
 

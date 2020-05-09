@@ -23,9 +23,9 @@ namespace PizzaAndSushi.WEB.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task Create([FromBody] CreateOrderModel createOrderModel)
+        public async Task<string> Create([FromBody] CreateOrderModel createOrderModel)
         {
-            await _orderService.Create(createOrderModel);
+          return  await _orderService.Create(createOrderModel);
         }
     }
 }

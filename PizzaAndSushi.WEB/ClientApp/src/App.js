@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { HomeComponent } from './components/Home';
 import { AdminComponent } from './components/adminComponents/admin'
+import { BasketMain } from './components/basket/basketMain'
 
 import './custom.css'
 
@@ -14,6 +15,7 @@ export default class App extends Component {
             <Layout>
                 <Route exact path='/' component={HomeComponent} />
                 <Route exact path='/admin' component={AdminComponent} />
+                <Route exact path='/basket' component={BasketMain} />
             </Layout>
         );
     }
