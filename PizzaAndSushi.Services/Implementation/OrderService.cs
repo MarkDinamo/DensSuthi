@@ -13,6 +13,7 @@ namespace PizzaAndSushi.Services.Implementation
     public class OrderService : IOrderService
     {
         private readonly PizzaAndSushiContext _pizzaAndSushiContext;
+        private static Random random = new Random();
 
         public OrderService(PizzaAndSushiContext pizzaAndSushiContext)
         {
@@ -22,7 +23,7 @@ namespace PizzaAndSushi.Services.Implementation
         {
             createOrderModel.OrderDetails.CreatedOne = DateTime.Now;
             createOrderModel.OrderDetails.OrderStatusId = 1;
-            createOrderModel.OrderDetails.Code = new Random(1).Next(10000, 99999);
+            createOrderModel.OrderDetails.Code = random.Next(10000, 99999);
 
             using (var transaction = await _pizzaAndSushiContext.Database.BeginTransactionAsync())
             {

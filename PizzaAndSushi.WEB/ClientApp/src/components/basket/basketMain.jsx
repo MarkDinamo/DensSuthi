@@ -6,8 +6,8 @@ import { InfoModal } from '../shared/infoModal';
 
 export function BasketMain() {
     const basket = useSelector(state => state.basket);
-    //const [items, setItems] = useState(basket);
-    const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
+    const [items, setItems] = useState(basket);
+   // const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
     const [products, setProducts] = useState([]);
 
     const [infoModal, setInfoModal] = useState(false);
@@ -54,7 +54,9 @@ export function BasketMain() {
             },
             body: JSON.stringify({ orderDetails, products })
         }).
-            then(response => response.json())
+            then(response => {
+               return response.text()
+            })
             .then(data => {
                 console.log(data);
                 setInfoModal(true);
