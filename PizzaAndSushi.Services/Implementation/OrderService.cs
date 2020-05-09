@@ -22,6 +22,7 @@ namespace PizzaAndSushi.Services.Implementation
         {
             createOrderModel.OrderDetails.CreatedOne = DateTime.Now;
             createOrderModel.OrderDetails.OrderStatusId = 1;
+            createOrderModel.OrderDetails.Code = new Random(1).Next(10000, 99999);
 
             using (var transaction = await _pizzaAndSushiContext.Database.BeginTransactionAsync())
             {
@@ -43,7 +44,7 @@ namespace PizzaAndSushi.Services.Implementation
 
                     await transaction.CommitAsync();
 
-                    return "72831";
+                    return $"{order.Entity.Id}-{createOrderModel.OrderDetails.Code}";
                 }
                 catch (Exception e) 
                 {

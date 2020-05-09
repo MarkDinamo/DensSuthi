@@ -17,6 +17,9 @@ namespace PizzaAndSushi.Models
         public string Details { get; set; }
 
         [Required]
+        public int Code { get; set; }
+
+        [Required]
         [MaxLength(500)]
         public string PhoneNumber { get; set; }
 
