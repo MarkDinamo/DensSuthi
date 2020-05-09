@@ -25,15 +25,16 @@ export function CreateRestoraunt({ refresh }) {
     }
 
     return (
-        <>
+        <div>
             <SuchiSnackBar isOpen={open} message={"Restoraunt created"}></SuchiSnackBar>
             <Form>
                 <FormGroup>
-                    <Label for="resturaunt">Address</Label>
                     <Input type="text" name="resturaunt" id="resturaunt" onChange={(e) => setAddress(e.target.value)} value={address} placeholder="Address" />
                 </FormGroup>
-                <Button color="success" onClick={createRestoraunt}>Create</Button>
+                <FormGroup>
+                    <Button color="success" onClick={createRestoraunt}>Create</Button>
+                </FormGroup>
             </Form>
-        </>
+        </div>
     )
 }

@@ -4,6 +4,7 @@ using PizzaAndSushi.Models;
 using PizzaAndSushi.Services.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,8 +23,15 @@ namespace PizzaAndSushi.Services.Implementation
             if (restaurants.Id == 0)
             {
                 await _pizzaAndSushiContext.AddAsync(restaurants);
-                await _pizzaAndSushiContext.SaveChangesAsync();
+
             }
+            else
+            {
+                var item = await _pizzaAndSushiContext.Restaurants.FirstOrDefaultAsync(e => e.Id == restaurants.Id);
+                item.Address = restaurants.Address;
+            }
+
+            await _pizzaAndSushiContext.SaveChangesAsync();
         }
 
         public async  Task Delete(int id)
