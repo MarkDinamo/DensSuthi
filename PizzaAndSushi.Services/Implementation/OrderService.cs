@@ -1,4 +1,5 @@
-﻿using PizzaAndSushi.DB;
+﻿using Microsoft.EntityFrameworkCore;
+using PizzaAndSushi.DB;
 using PizzaAndSushi.Models;
 using PizzaAndSushi.Services.Abstractions;
 using PizzaAndSushi.Services.UiModels;
@@ -47,7 +48,7 @@ namespace PizzaAndSushi.Services.Implementation
 
                     return $"{order.Entity.Id}-{createOrderModel.OrderDetails.Code}";
                 }
-                catch (Exception e) 
+                catch (Exception e)
                 {
                     await transaction.RollbackAsync();
                     throw;
@@ -55,9 +56,9 @@ namespace PizzaAndSushi.Services.Implementation
             }
         }
 
-        public Task<IEnumerable<Order>> Get()
+        public async Task<IEnumerable<Order>> Get()
         {
-            throw new NotImplementedException();
+            return await _pizzaAndSushiContext.Orders.Include(o => o.OrderStatus).OrderByDescending(e => e.CreatedOne).ToListAsync();
         }
 
         public Task<IEnumerable<OrderItem>> GetOrderItems(string orderId)
