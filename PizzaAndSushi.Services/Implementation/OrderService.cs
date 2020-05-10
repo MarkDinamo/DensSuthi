@@ -82,5 +82,10 @@ namespace PizzaAndSushi.Services.Implementation
             order.OrderStatusId = statusId;
             await _pizzaAndSushiContext.SaveChangesAsync();
         }
+
+        public async Task<Order> GetByCode(int id, int code)
+        {
+            return await _pizzaAndSushiContext.Orders.Include(e => e.OrderStatus).FirstOrDefaultAsync(e => e.Id==id && e.Code == code);
+        }
     }
 }

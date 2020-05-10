@@ -13,4 +13,10 @@ code {
   border-color: #1861ac;
 }
 
+.width-100{
+    width:100px;
+}
 
+.display-inline {
+    display: inline;
+}
