@@ -16,7 +16,7 @@ export function OrderList({ updateCallBack, orders }) {
     }, [])
 
     const updateStatus = (id, status) => {
-        let statusId = orderStatuses.find(e => e.name == status);
+        let statusId = orderStatuses.find(e => e.name == status).id;
         updateCallBack(id, statusId, status);
     }
 

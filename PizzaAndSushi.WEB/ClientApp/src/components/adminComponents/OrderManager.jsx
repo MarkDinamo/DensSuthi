@@ -24,6 +24,8 @@ export function OrderManager() {
         order.orderStatus.name = status;
 
         setAllOrders(allOrdersCopy);
+
+        fetch(`api/order/updateOrderStatus/${id}/${statusId}`)
     }
 
     return (

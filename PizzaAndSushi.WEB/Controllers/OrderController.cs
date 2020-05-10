@@ -42,5 +42,12 @@ namespace PizzaAndSushi.WEB.Controllers
         {
             return await _orderService.GetStatuses();
         }
+
+        [HttpGet]
+        [Route("updateOrderStatus/{id}/{statusId}")]
+        public async Task UpdateOrderStatus(int id, int statusId)
+        {
+            await _orderService.UpdateStatus(id, statusId);
+        }
     }
 }

@@ -21,7 +21,7 @@ export function OrderListItem({ updateCallBack, order }) {
 
     return (
         <Col key={orderEntity.id} xs={12}>
-            {orderEntity.id != undefined && 
+            {orderEntity.id != undefined && orderEntity.orderStatus.name != "Resolved" && orderEntity.orderStatus.name != "Rejected" &&
                 <div className="order-item">
                     <Row>
                         <Col xs={2}>

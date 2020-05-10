@@ -75,5 +75,12 @@ namespace PizzaAndSushi.Services.Implementation
         {
             return await _pizzaAndSushiContext.OrderStatuses.ToListAsync();
         }
+
+        public async Task UpdateStatus(int id, int statusId)
+        {
+            var order = await _pizzaAndSushiContext.Orders.FirstAsync(e => e.Id == id);
+            order.OrderStatusId = statusId;
+            await _pizzaAndSushiContext.SaveChangesAsync();
+        }
     }
 }
