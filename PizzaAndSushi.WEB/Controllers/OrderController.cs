@@ -26,7 +26,7 @@ namespace PizzaAndSushi.WEB.Controllers
         [Route("create")]
         public async Task<string> Create([FromBody] CreateOrderModel createOrderModel)
         {
-          return  await _orderService.Create(createOrderModel);
+            return await _orderService.Create(createOrderModel);
         }
 
         [HttpGet]
@@ -34,6 +34,13 @@ namespace PizzaAndSushi.WEB.Controllers
         public async Task<IEnumerable<Order>> All()
         {
             return await _orderService.Get();
+        }
+
+        [HttpGet]
+        [Route("statuses")]
+        public async Task<IEnumerable<OrderStatus>> Statuses()
+        {
+            return await _orderService.GetStatuses();
         }
     }
 }

@@ -1,24 +1,29 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Form, FormGroup, Label, Input, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import { OrderList } from '../adminComponents/orderManagerActions/OrderList';
+import * as _ from 'lodash';
 
 export function OrderManager() {
-    let allOrders;
-
+    const [allOrders, setAllOrders] = useState();
     const [orders, setOrders] = useState();
 
     useEffect(() => {
         fetch('api/order/all')
             .then(response => response.json())
             .then(respData => {
-                debugger;
-                allOrders = respData;
-                setOrders(respData);
+                setAllOrders(respData);
+                setOrders(_.cloneDeep(respData));
             })
     }, [])
 
-    const update = (id, status) => {
+    const update = (id, statusId, status) => {
+        let allOrdersCopy = _.cloneDeep(allOrders);
+        let order = allOrdersCopy.find(e => e.id == id);
+        order.orderStatusId = statusId;
+        order.orderStatus.id = statusId;
+        order.orderStatus.name = status;
 
+        setAllOrders(allOrdersCopy);
     }
 
     return (

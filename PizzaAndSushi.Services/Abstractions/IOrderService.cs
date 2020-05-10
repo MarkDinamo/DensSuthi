@@ -13,5 +13,6 @@ namespace PizzaAndSushi.Services.Abstractions
         Task Update(Order order);
         Task<IEnumerable<Order>> Get();
         Task<IEnumerable<OrderItem>> GetOrderItems(string orderId);
+        Task<IEnumerable<OrderStatus>> GetStatuses();
     }
 }

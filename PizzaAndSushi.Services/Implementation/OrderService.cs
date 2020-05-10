@@ -61,7 +61,7 @@ namespace PizzaAndSushi.Services.Implementation
             return await _pizzaAndSushiContext.Orders.Include(o => o.OrderStatus).OrderByDescending(e => e.CreatedOne).ToListAsync();
         }
 
-        public Task<IEnumerable<OrderItem>> GetOrderItems(string orderId)
+        public async Task<IEnumerable<OrderItem>> GetOrderItems(string orderId)
         {
             throw new NotImplementedException();
         }
@@ -69,6 +69,11 @@ namespace PizzaAndSushi.Services.Implementation
         public Task Update(Order order)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<OrderStatus>> GetStatuses()
+        {
+            return await _pizzaAndSushiContext.OrderStatuses.ToListAsync();
         }
     }
 }
