@@ -37,6 +37,13 @@ namespace PizzaAndSushi.WEB.Controllers
         }
 
         [HttpGet]
+        [Route("GetOrderItemsById/{id}")]
+        public async Task<IEnumerable<KeyValuePair<string,int>>> GetOrderItems(int id)
+        {
+            return await _orderService.GetOrderItems(id);
+        }
+
+        [HttpGet]
         [Route("statuses")]
         public async Task<IEnumerable<OrderStatus>> Statuses()
         {

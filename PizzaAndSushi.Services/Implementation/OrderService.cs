@@ -61,9 +61,11 @@ namespace PizzaAndSushi.Services.Implementation
             return await _pizzaAndSushiContext.Orders.Include(o => o.OrderStatus).OrderByDescending(e => e.CreatedOne).ToListAsync();
         }
 
-        public async Task<IEnumerable<OrderItem>> GetOrderItems(string orderId)
+        public async Task<IEnumerable<KeyValuePair<string, int>>> GetOrderItems(int orderId)
         {
-            throw new NotImplementedException();
+            var data = await _pizzaAndSushiContext.OrderItems.Where(e => e.OrderId == orderId).Include(e => e.Product).ToListAsync();
+
+            return data.Select(e => new KeyValuePair<string, int>(e.Product.Name, e.Count));
         }
 
         public Task Update(Order order)

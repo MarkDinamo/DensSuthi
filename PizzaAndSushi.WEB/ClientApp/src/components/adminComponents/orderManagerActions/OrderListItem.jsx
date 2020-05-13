@@ -4,6 +4,7 @@ import './orderListStyles.css'
 import ReactTimeAgo from 'react-time-ago'
 import { OrderAction } from '../orderManagerActions/OrderActions'
 import * as _ from 'lodash';
+import { OrderItems } from '../orderManagerActions/OrderItems'
 
 export function OrderListItem({ updateCallBack, order }) {
     const [orderEntity, setOrderEntity] = useState({})
@@ -24,6 +25,9 @@ export function OrderListItem({ updateCallBack, order }) {
             {orderEntity.id != undefined && orderEntity.orderStatus.name != "Resolved" && orderEntity.orderStatus.name != "Rejected" &&
                 <div className="order-item">
                     <Row>
+                        <Col xs={2}>
+                            Id: {orderEntity.id}
+                        </Col>
                         <Col xs={2}>
                             Code: {orderEntity.code}
                         </Col>
@@ -47,8 +51,11 @@ export function OrderListItem({ updateCallBack, order }) {
                         <Col xs={2}>
                             Status: {orderEntity.orderStatus.name}
                         </Col>
-                        <Col xs={10}>
+                        <Col xs={8}>
                             Details: {orderEntity.details}
+                        </Col>
+                        <Col xs={10}>
+                            <OrderItems id={orderEntity.id}></OrderItems>
                         </Col>
                         <Col xs={2}>
                             <OrderAction updateCallBack={updateStatus} orderStatusProp={order.orderStatus.name} orderId={order.id}></OrderAction>
