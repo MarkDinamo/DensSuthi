@@ -3,9 +3,11 @@ import { Container, Row, Col, Table, Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { OrderDetailsModel } from '../basket/OrderDetailsModal';
 import { InfoModal } from '../shared/infoModal';
+import * as actions from '../../actions/index'
 
 export function BasketMain() {
     const basket = useSelector(state => state.basket);
+    const dispatch = useDispatch();
     const [items, setItems] = useState(basket);
    // const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
     const [products, setProducts] = useState([]);
@@ -31,6 +33,14 @@ export function BasketMain() {
                 .then(data => setProducts(data))
         }
     }, [])
+
+    useEffect(() => {
+        let basketArr = basket;
+        basketArr.sort(function (a, b) {
+            return a.id - b.id
+        });
+        setItems(basketArr);
+    }, [basket])
 
     const getName = (id) => {
         return products.find(e => e.id == id).name;
@@ -63,6 +73,16 @@ export function BasketMain() {
                 setInfoModalText("You can track your order progress, code: " + data)
             })
             .catch(error => console.log(error))
+    }
+
+    const oneMore = (id) => {
+        let item = basket.find(e => e.id);
+        dispatch(actions.addToBasket(id, item.count + 1));
+    }
+
+    const decrement = (id) => {
+        let item = basket.find(e => e.id);
+        dispatch(actions.addToBasket(id, item.count - 1));
     }
 
     return (
@@ -105,8 +125,8 @@ export function BasketMain() {
                                                             {item.count}
                                                         </td>
                                                         <td>
-                                                            <Button color="secondary">+</Button>{' '}
-                                                            <Button color="secondary">-</Button>{' '}
+                                                            <Button onClick={() => oneMore(item.id)} color="secondary">+</Button>{' '}
+                                                            <Button onClick={() => decrement(item.id)} color="secondary">-</Button>{' '}
                                                         </td>
                                                     </tr>
                                                 )

@@ -12,12 +12,13 @@ export function ProductItem(props) {
     const [isInBasket, setIsInBasket] = useState();
 
     useEffect(() => {
-        console.log(basket);
+        let isInBasket = basket.find(e => e.id == props.product.id);
+        setIsInBasket(isInBasket);
     }, [])
 
     const addToBasket = () => {
         setIsInBasket(true);
-        dispatch(actions.addToBasket(props.product.id));
+        dispatch(actions.addToBasket(props.product.id, 1));
     }
 
     const removeFromBasket = () => {
