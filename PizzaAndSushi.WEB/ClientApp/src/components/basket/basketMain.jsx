@@ -87,6 +87,7 @@ export function BasketMain() {
             })
             .then(data => {
                 console.log(data);
+                dispatch(actions.clearBasket());
                 setInfoModal(true);
                 setInfoModalText("You can track your order progress, code: " + data)
             })
