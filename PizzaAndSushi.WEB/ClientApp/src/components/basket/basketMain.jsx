@@ -9,8 +9,9 @@ export function BasketMain() {
     const basket = useSelector(state => state.basket);
     const dispatch = useDispatch();
     const [items, setItems] = useState(basket);
-   // const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
+    // const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
     const [products, setProducts] = useState([]);
+    const [sum, setSum] = useState(0);
 
     const [infoModal, setInfoModal] = useState(false);
     const [infoModalText, setInfoModalText] = useState("");
@@ -35,13 +36,29 @@ export function BasketMain() {
     }, [])
 
     useEffect(() => {
+        console.log(basket);
         let basketArr = basket;
         basketArr.sort(function (a, b) {
             return a.id - b.id
         });
         setItems(basketArr);
+
     }, [basket])
 
+    useEffect(() => {
+        if (products.length != 0) {
+
+            let sumVar = 0;
+            for (var i = 0; i < basket.length; i++) {
+                let item = basket[i];
+                let price = products.find(e => e.id == item.id).price;
+                let total = price * item.count;
+                sumVar = sumVar + total;
+            }
+
+            setSum(sumVar);
+        }
+    }, [basket, products])
     const getName = (id) => {
         return products.find(e => e.id == id).name;
     }
@@ -53,7 +70,7 @@ export function BasketMain() {
             phoneNumber: data.phoneNumber,
             isSelfTake: data.isSelfTake
         }
-        
+
         let products = [];
         items.forEach(e => products.push({ key: e.id, value: e.count }));
 
@@ -65,7 +82,7 @@ export function BasketMain() {
             body: JSON.stringify({ orderDetails, products })
         }).
             then(response => {
-               return response.text()
+                return response.text()
             })
             .then(data => {
                 console.log(data);
@@ -76,12 +93,12 @@ export function BasketMain() {
     }
 
     const oneMore = (id) => {
-        let item = basket.find(e => e.id);
+        let item = basket.find(e => e.id == id);
         dispatch(actions.addToBasket(id, item.count + 1));
     }
 
     const decrement = (id) => {
-        let item = basket.find(e => e.id);
+        let item = basket.find(e => e.id == id);
         dispatch(actions.addToBasket(id, item.count - 1));
     }
 
@@ -134,6 +151,9 @@ export function BasketMain() {
                                         </tbody>
                                     </Table>
                                     <br />
+                                    <p>
+                                        Sum: {sum}
+                                    </p>
                                     <OrderDetailsModel proccessOrder={proccessOrder}></OrderDetailsModel>
                                 </>
                             }
