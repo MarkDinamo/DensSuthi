@@ -11,6 +11,9 @@ namespace PizzaAndSushi.Models
         [MaxLength(500)]
         public string Name { get; set; }
 
+        [Range(1, int.MaxValue)]
+        public int Priority { get; set; }   
+
         public List<Product> Products { get; set; }
     }
 }

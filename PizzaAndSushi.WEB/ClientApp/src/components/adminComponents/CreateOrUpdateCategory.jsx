@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
-import { Label, Input, TabPane, Nav, NavItem, NavLink, Card, Button, Modal, ModalHeader, ModalBody, ModalFooter, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Label, Input, Form, FormGroup, NavItem, NavLink, Card, Button, Modal, ModalHeader, ModalBody, ModalFooter, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -11,6 +11,7 @@ function Alert(props) {
 export function CreateOrUpdateCategory(props) {
     const isEdit = props.category != undefined
     const [categoryName, setCategoryName] = useState("");
+    const [categoryPriority, setCategoryPriority] = useState(0);
     const [toastMessage, setToastMessage] = useState("");
     const [modal, setModal] = useState(false);
     const [openSnack, setOpenSnack] = useState(false);
@@ -34,14 +35,14 @@ export function CreateOrUpdateCategory(props) {
         let method = 'POST'
         if (props.category) {
             id = props.category.id;
-            method ='PUT'
+            method = 'PUT'
         }
         fetch('api/ProductType', {
             method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id, name: categoryName })
+            body: JSON.stringify({ id, name: categoryName, priority: categoryPriority })
         })
             .then((response) => {
                 closeModalPrepation();
@@ -68,9 +69,11 @@ export function CreateOrUpdateCategory(props) {
     const toggle = () => {
         if (props.category) {
             setCategoryName(props.category.name);
+            setCategoryPriority(props.category.priority)
         }
         else {
             setCategoryName("");
+            setCategoryPriority(0);
         }
         setModal(!modal);
     }
@@ -97,8 +100,16 @@ export function CreateOrUpdateCategory(props) {
                         isEdit ? <ModalHeader toggle={toggle}>Edit category</ModalHeader> : <ModalHeader toggle={toggle}>Create category</ModalHeader>
                     }
                     <ModalBody>
-                        <Label for="categoryName">Category name</Label>
-                        <Input type="text" name="category" id="categoryName" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} placeholder="Category name" />
+                        <Form>
+                            <FormGroup>
+                                <Label for="categoryName">Category name</Label>
+                                <Input type="text" name="category" id="categoryName" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} placeholder="Category name" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="categoryPriority">Category priority</Label>
+                                <Input type="number" name="priority" id="categoryPriority" value={categoryPriority} onChange={(e) => setCategoryPriority(e.target.value)} placeholder="Category priority" />
+                            </FormGroup>
+                        </Form>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={toggle}>Cancel</Button>
