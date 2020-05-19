@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PizzaAndSushi.Models
 {
-  public  class Order
+    public class Order
     {
         public int Id { get; set; }
 
@@ -31,6 +32,9 @@ namespace PizzaAndSushi.Models
 
         [Required]
         public DateTime CreatedOne { get; set; }
+
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal Sum { get; set; }
 
         public int OrderStatusId { get; set; }
 

@@ -68,7 +68,8 @@ export function BasketMain() {
             address: data.address,
             details: data.details,
             phoneNumber: data.phoneNumber,
-            isSelfTake: data.isSelfTake
+            isSelfTake: data.isSelfTake,
+            sum: sum
         }
 
         let products = [];
