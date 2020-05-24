@@ -53,7 +53,7 @@ namespace PizzaAndSushi.Services.Implementation
                 productType.Products = await _pizzaAndSushiContext.Products.Where(e => e.ProductTypeId == productType.Id && e.IsHidden == false).ToListAsync();
             }
 
-            return productTypes;
+            return productTypes.Where(e=> e.Products.Any());
         }
     }
 }

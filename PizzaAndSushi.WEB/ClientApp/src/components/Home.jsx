@@ -8,7 +8,9 @@ export function HomeComponent(props) {
         <>
             <Row>
                 <Col xs="12">
-                    <h4>Welcome to Den's Sushi and Pizza</h4>
+                    <div className="center-flex">
+                        <h4>Welcome to Den's Sushi and Pizza</h4>
+                    </div>
                 </Col>
             </Row>
             <Row>

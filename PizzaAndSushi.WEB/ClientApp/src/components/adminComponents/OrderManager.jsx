@@ -28,6 +28,15 @@ export function OrderManager() {
         fetch(`api/order/updateOrderStatus/${id}/${statusId}`)
     }
 
+    const filter = (id) => {
+        if (id) {
+            let filteredOrders = allOrders.filter(e => e.id == id);
+            setOrders(_.cloneDeep(filteredOrders));
+        } else {
+            setOrders(_.cloneDeep(allOrders));
+        }
+    }
+
     return (
         <>
             {orders &&
@@ -40,7 +49,7 @@ export function OrderManager() {
                             <Form>
                                 <FormGroup>
                                     <Label for="exampleEmail">Order Id</Label>
-                                    <Input type="text" name="orderId" id="orderId" placeholder="Type order id" />
+                                    <Input onChange={(e) => filter(e.target.value)} type="number" name="orderId" id="orderId" placeholder="Type order id" />
                                 </FormGroup>
                             </Form>
                         </Col>

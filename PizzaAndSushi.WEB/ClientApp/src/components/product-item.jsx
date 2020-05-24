@@ -27,10 +27,12 @@ export function ProductItem(props) {
     }
 
     return (
-        <div>
+        <div className="product-item">
             <div>
-                <h4>{props.product.name}</h4>
-                <img src={imageUrl} alt="Italian Trulli" width="225" height="125" />
+                <div className="center-flex">
+                    <h6>{props.product.name}</h6>
+                </div>
+                <img src={imageUrl} alt="Italian Trulli" width="325" height="225" />
             </div>
             <div>
                 <p>

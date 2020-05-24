@@ -9,7 +9,7 @@ export function BasketMain() {
     const basket = useSelector(state => state.basket);
     const dispatch = useDispatch();
     const [items, setItems] = useState(basket);
-    // const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
+   // const [items, setItems] = useState([{ id: 1, count: 1 }, { id: 2, count: 1 }, { id: 3, count: 1 }, { id: 8, count: 1 }, { id: 9, count: 1 }]);
     const [products, setProducts] = useState([]);
     const [sum, setSum] = useState(0);
 
@@ -73,7 +73,11 @@ export function BasketMain() {
         }
 
         let products = [];
-        items.forEach(e => products.push({ key: e.id, value: e.count }));
+        items.forEach(e => {
+            if (e.count > 0) {
+                products.push({ key: e.id, value: e.count })
+            }
+        });
 
         fetch('api/order/create', {
             method: "POST",
@@ -145,7 +149,7 @@ export function BasketMain() {
                                                         </td>
                                                         <td>
                                                             <Button onClick={() => oneMore(item.id)} color="secondary">+</Button>{' '}
-                                                            <Button onClick={() => decrement(item.id)} color="secondary">-</Button>{' '}
+                                                            <Button disabled={item.count < 1} onClick={() => decrement(item.id)} color="secondary">-</Button>{' '}
                                                         </td>
                                                     </tr>
                                                 )
@@ -156,7 +160,9 @@ export function BasketMain() {
                                     <p>
                                         Sum: {sum}
                                     </p>
-                                    <OrderDetailsModel proccessOrder={proccessOrder}></OrderDetailsModel>
+                                    {sum > 0 &&
+                                        <OrderDetailsModel proccessOrder={proccessOrder}></OrderDetailsModel>
+                                    }
                                 </>
                             }
                         </div>

@@ -51,14 +51,17 @@ export function OrderListItem({ updateCallBack, order }) {
                         <Col xs={2}>
                             Status: {orderEntity.orderStatus.name}
                         </Col>
-                        <Col xs={8}>
+                        <Col xs={2}>
+                            Sum: {orderEntity.sum}
+                        </Col>
+                        <Col xs={6}>
                             Details: {orderEntity.details}
                         </Col>
                         <Col xs={10}>
                             <OrderItems id={orderEntity.id}></OrderItems>
                         </Col>
                         <Col xs={2}>
-                            <OrderAction updateCallBack={updateStatus} orderStatusProp={order.orderStatus.name} orderId={order.id}></OrderAction>
+                            <OrderAction isSelfTake={order.isSelfTake} updateCallBack={updateStatus} orderStatusProp={order.orderStatus.name} orderId={order.id}></OrderAction>
                         </Col>
                     </Row>
                 </div>

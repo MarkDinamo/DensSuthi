@@ -3,12 +3,15 @@ import { Label, Input, Form, FormGroup, NavItem, NavLink, Card, Button, Modal, M
 import classnames from 'classnames';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { ConfirmModal } from '../../components/shared/confirmModal'
+
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 export function CreateOrUpdateCategory(props) {
+    const [isOpenModal, setIsOpenModal] = useState(false);
     const isEdit = props.category != undefined
     const [categoryName, setCategoryName] = useState("");
     const [categoryPriority, setCategoryPriority] = useState(0);
@@ -78,12 +81,24 @@ export function CreateOrUpdateCategory(props) {
         setModal(!modal);
     }
 
+    const confirmModalCallBack = (confirmed) => {
+        setIsOpenModal(false)
+        if (confirmed) {
+            deleteCategory();
+        }
+    }
+
+    const OpenIsDeleteModal = () => {
+        setIsOpenModal(true)
+    }
+
     return (
         <>
             {isEdit
                 ? <>
                     <Button onClick={toggle} color="primary">Edit</Button> {' '}
-                    <Button onClick={deleteCategory} color="danger">Delete</Button> {' '}
+                    <ConfirmModal open={isOpenModal} message="Are you sure to remove category" resultCallBack={confirmModalCallBack}></ConfirmModal>
+                    <Button onClick={OpenIsDeleteModal} color="danger">Delete</Button> {' '}
                 </>
                 : <Button onClick={toggle} color="success">Create</Button>
             }

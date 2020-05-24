@@ -1,7 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { Form, FormGroup, Label, Input, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-export function OrderAction({ orderId, orderStatusProp, updateCallBack }) {
+export function OrderAction({ orderId, orderStatusProp, isSelfTake, updateCallBack }) {
     const [nextStatus, setNextStatus] = useState("");
     const [orderStatus, setOrderStatus] = useState("");
 
@@ -13,7 +13,7 @@ export function OrderAction({ orderId, orderStatusProp, updateCallBack }) {
         calculateNewStatus(orderStatus)
     }, [orderStatus])
 
-    const calculateNewStatus = (currentStatus, isSelfTake) => {
+    const calculateNewStatus = (currentStatus) => {
         if (currentStatus == 'Created') {
             setNextStatus("Confirmed");
         }
@@ -44,10 +44,10 @@ export function OrderAction({ orderId, orderStatusProp, updateCallBack }) {
 
     return (
         <>
-            {nextStatus.length > 0 && orderStatus !== "Resolved" && orderStatus !=="Rejected" &&
+            {nextStatus.length > 0 && orderStatus !== "Resolved" && orderStatus !== "Rejected" &&
                 <>
-                <Button onClick={() => { changeStatus() }} color="info">{nextStatus}</Button> {' '}
-                <Button onClick={rejectOrder} color="danger">Reject</Button>
+                    <Button onClick={() => { changeStatus() }} color="info">{nextStatus}</Button> {' '}
+                    <Button onClick={rejectOrder} color="danger">Reject</Button>
                 </>
             }
         </>

@@ -75,8 +75,8 @@ export function CreateOrUpdateProduct(props) {
         <>
             {
                 isCreate
-                    ? <Button onClick={openDialog} color="primary">Create</Button>
-                    : <Button onClick={openDialog} color="success">Edit</Button>
+                    ? <Button onClick={openDialog} color="success">Create</Button>
+                    : <Button onClick={openDialog} color="primary">Edit</Button>
             }
             <Snackbar open={snack} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
                 <Alert onClose={handleClose} severity="success">

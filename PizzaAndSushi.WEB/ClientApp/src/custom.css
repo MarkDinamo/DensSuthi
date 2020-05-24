@@ -1,22 +1,41 @@
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 code {
-  color: #E01A76;
+    color: #E01A76;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
-.width-100{
-    width:100px;
+.width-100 {
+    width: 100px;
 }
 
 .display-inline {
     display: inline;
+}
+
+
+.home-background {
+    background-color: #d1a3a5;
+}
+
+.center-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.marging-top-10 {
+    margin-top: 10px;
+}
+
+.product-item {
+    border: 1px solid grey;
+    padding: 5px;
 }

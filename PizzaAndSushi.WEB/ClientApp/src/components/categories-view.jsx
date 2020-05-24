@@ -19,10 +19,12 @@ export function CategoriesView(props) {
             {
                 items.map((category) =>
                     <div key={category.id}>
-                        <h4 >
-                            {category.name}
+                        <div className="center-flex marging-top-10">
+                            <h4>
+                                {category.name}
+                            </h4>
+                        </div>
 
-                        </h4>
                         <ProductGrid products={category.products}></ProductGrid>
                     </div>
                 )
